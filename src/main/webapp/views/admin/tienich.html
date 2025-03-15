@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+    <script src="js/menu.js"></script>
+    <script src="js/utilities.js"></script>
+    <script>
+        window.onload = function() {
+            loadTienIch();
+        }
+    </script>
+</head>
+
+<body>
+<section class="body">
+    <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+    <div class="inner-wrapper">
+        <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+        <section role="main" class="content-body" id="main-content">
+            <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+            <div class="row">
+                <div class="col-sm-12 header-sp">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a onclick="clearInput()" data-bs-toggle="modal" data-bs-target="#themdanhmuc" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm tiện ich</a></div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="wrapper">
+                        <table id="example" class="table table-striped tablefix">
+                            <thead class="thead-tablefix">
+                            <tr>
+                                <th>id</th>
+                                <th>Icon</th>
+                                <th>Tên tiện ích</th>
+                                <th class="sticky-col">Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody id="listti">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</section>
+<script>
+    $('#example').DataTable();
+</script>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<div class="modal fade" id="themdanhmuc" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">Thêm/ cập nhật tiện ích</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body">
+                <div class="col-sm-5" style="margin: auto;">
+                    <input id="idti" type="hidden">
+                    <label>Tên tiện ích</label>
+                    <input id="name" type="text" class="form-control">
+                    <label>Icon</label>
+                    <input id="icon" type="text" class="form-control">
+                    <br><br>
+                    <button onclick="saveTienIch()" class="btn btn-success form-control action-btn">Thêm/ Cập nhật tiện ích</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
