@@ -4,12 +4,6 @@
 <head>
     <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
     <script src="js/menu.js"></script>
-    <script src="js/taikhoan.js"></script>
-    <script>
-        window.onload = function() {
-            loadAllUser(0, "");
-        }
-    </script>
 </head>
 
 <body>
@@ -21,30 +15,22 @@
             <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
             <div class="row">
                 <div class="col-sm-12 header-sp">
-                    <div class="row">
+                    <form class="row">
                         <div class="col-md-3 col-sm-6 col-6">
-                            <label>&ThinSpace;</label><br>
-                            <a data-bs-toggle="modal" data-bs-target="#addtk" class="btn btn-success"><i class="fa fa-plus"></i> Thêm admin</a>
-                        </div>
-                        <div class="col-md-3 col-sm-6 col-6">
-                            <label class="lb-form">Chọn quyền</label>
-                            <select onchange="filteruser()" id="role" class="form-control">
+                            <select name="role" id="role" class="form-control">
                                 <option value="">Tất cả quyền</option>
-                                <option value="ROLE_USER">Tài khoản người dùng</option>
-                                <option value="ROLE_ADMIN">Tài khoản admin</option>
+                                <option value="ROLE_USER" th:selected="${param.role != null and param.role[0] == 'ROLE_USER'}">Tài khoản người dùng</option>
+                                <option value="ROLE_ADMIN" th:selected="${param.role != null and param.role[0] == 'ROLE_ADMIN'}">Tài khoản admin</option>
                             </select>
                         </div>
-                    </div>
+                        <div class="col-md-2 col-sm-6 col-6">
+                            <button class="btn btn-primary form-control">Lọc</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-sm-12">
                     <div class="wrapper">
-                        <div class="headertable">
-                            <div class="divsearchtb">
-                                <label>search: </label>
-                                <input onkeyup="searchTable()" id="searchtable" placeholder="tìm kiếm" class="inputsearchtable">
-                            </div>
-                        </div>
-                        <table class="table table-striped tablefix">
+                        <table id="example" class="table table-striped tablefix">
                             <thead class="thead-tablefix">
                             <tr>
                                 <th>id</th>
@@ -57,30 +43,32 @@
                             </tr>
                             </thead>
                             <tbody id="listuser">
-                            <tr>
-                                <td>#2342</td>
-                                <td>hieutran@gmail.com</td>
-                                <td>danh mục 1</td>
-                                <td>danh mục 1</td>
-                                <td>18-09-2023</td>
-                                <td>ROLE_USER</td>
-                                <td class="sticky-col">xoas</td>
+                            <tr th:each="u : ${taiKhoanList}">
+                                <td th:text="${u.id}"></td>
+                                <td th:text="${u.email}"></td>
+                                <td th:text="${u.fullName}"></td>
+                                <td th:text="${u.phone}"></td>
+                                <td th:text="${u.createdDate}"></td>
+                                <td th:text="${u.role}"></td>
+                                <td>
+                                    <form method="post" action="lockOrUnlockUser">
+                                        <input type="hidden" name="id" th:value="${u.id}">
+                                        <button th:class="${u.actived == true?'btn btn-primary':'btn btn-danger'}"
+                                                th:text="${u.actived == true?'Khóa':'Mở khóa'}"></button>
+                                    </form>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination" id="pageable">
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </section>
     </div>
 </section>
+<script>
+    $('#example').DataTable();
+</script>
 <th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
 </body>
 <div class="modal" id="addtk" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">

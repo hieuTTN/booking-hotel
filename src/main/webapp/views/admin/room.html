@@ -2,13 +2,12 @@
 <html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
     <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
     <script src="js/menu.js"></script>
-    <script src="js/hotel.js"></script>
+    <script src="js/room.js"></script>
     <script>
         window.onload = function() {
-            loadHotel();
+            loadRoom();
         }
     </script>
 </head>
@@ -24,7 +23,7 @@
                 <div class="col-sm-12 header-sp">
                     <div class="row">
                         <div class="col-md-3">
-                            <a href="/admin/add-hotel" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm khách sạn</a>
+                            <a href="/admin/add-room" class="btn btn-primary"><i class="fa fa-plus"></i> Thêm phòng</a>
                         </div>
                     </div>
                 </div>
@@ -35,16 +34,16 @@
                             <tr>
                                 <th>id</th>
                                 <th>Ảnh</th>
-                                <th>Tên khách sạn</th>
-                                <th>Danh mục</th>
-                                <th>Địa chỉ</th>
+                                <th>Tên phòng</th>
                                 <th>Giá tiền</th>
-                                <th>Lượt đánh giá</th>
-                                <th>Sao</th>
+                                <th>Số giường</th>
+                                <th>Số người tối đa</th>
+                                <th>Khách sạn</th>
                                 <th class="sticky-col">Hành động</th>
                             </tr>
                             </thead>
-                            <tbody id="listHotel">
+                            <tbody id="listroom">
+
                             </tbody>
                         </table>
                     </div>
@@ -53,9 +52,6 @@
         </section>
     </div>
 </section>
-<script>
-    $('#example').DataTable();
-</script>
 <th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
 </body>
 </html>

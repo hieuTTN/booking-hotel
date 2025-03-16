@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html class="fixed" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <head th:replace="fragment/libAdmin :: libheaderadmin"></head>
+  <script src="js/menu.js"></script>
+  <script src="js/room.js"></script>
+  <script>
+    window.onload = function() {
+      loadInit();
+      loadAllHotelRoom();
+      loadARoom();
+      loadAllUtilities();
+    }
+  </script>
+</head>
+
+<body>
+<section class="body">
+  <th:block th:replace="fragment/sidebarAdmin :: headerAdmin"></th:block>
+  <div class="inner-wrapper">
+    <th:block th:replace="fragment/sidebarAdmin :: sidenavAdmin"></th:block>
+    <section role="main" class="content-body" id="main-content">
+      <th:block th:replace="fragment/sidebarAdmin :: pageHeader"></th:block>
+      <div class="row">
+        <div class="col-sm-12 header-sps">
+          <div class="title-add-admin">
+            <p>Thêm/ cập nhật phòng</p>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="form-add">
+            <div class="row">
+              <div class="col-md-4 col-sm-12 col-12">
+                <label class="lb-form">Tên phòng</label>
+                <input id="name" type="text" class="form-control">
+                <label class="lb-form">Giá tiền</label>
+                <input id="price" type="text" class="form-control">
+                <label class="lb-form">Số giường</label>
+                <input id="numBed" type="text" class="form-control">
+                <label class="lb-form">Số người tối đa</label>
+                <input id="maxPeople" type="text" class="form-control">
+                <label class="lb-form">Khách sạn</label>
+                <select id="listdpar" class="form-control" style="width: 100%;">
+                </select>
+                <label class="lb-form">Tiện ích</label>
+                <select id="listUt" multiple class="form-control" style="width: 100%;">
+                </select>
+                <br>
+                <div class="loading" id="loading">
+                  <div class="bar1 bar"></div>
+                </div><br>
+                <button onclick="saveRoom()" class="btn btn-primary form-control">Thêm/ cập nhật</button>
+              </div>
+              <div class="col-md-8 col-sm-12 col-12">
+                <label class="lb-form">Ảnh nền</label>
+                <input id="imgbanner" type="file" class="form-control">
+                <img src="" id="imgpreproduct" style="width: 70px;margin-top: 5px;display: block;">
+                <label class="lb-form">Ảnh phụ</label>
+                <input id="choosefile" multiple type="file" style="visibility: hidden;">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row" id="preview">
+                      <div class="col-md-3" id="chon-anhs" style="height: 100px;">
+                        <div style="height: 120px;" id="choose-image" class="choose-image" onclick="document.getElementById('choosefile').click(); return false;">
+                          <p><i class="fas fa-camera" id="camera"></i></p>
+                          <p id="numimage">Chọn ảnh phụ cho phòng</p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row" id="anhdathem" style="display: none;">
+                    <div class="col-sm-12">
+                      <h4 style="margin-top: 30px;">Ảnh đã thêm</h4>
+                    </div>
+                    <div id="listanhdathem" class="row">
+
+                    </div>
+                  </div>
+                </div>
+                <label class="lb-form">Mô tả phòng</label>
+                <textarea id="editor" name="content"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+<th:block th:replace="fragment/libAdmin :: jdadmin"></th:block>
+</body>
+<script>
+  fileimage.onchange = evt => {
+    const [file] = fileimage.files
+    if (file) {
+      imgpreview.src = URL.createObjectURL(file)
+    }
+  }
+</script>
+<script src="https://cdn.tiny.cloud/1/f6s0gxhkpepxkws8jawvfwtj0l9lv0xjgq1swbv4lgcy3au3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+  tinymce.init({
+    selector: 'textarea#editor',
+  });
+</script>
+</html>
